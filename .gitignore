@@ -1,0 +1,9 @@
+# Build
+es6
+lib
+
+# Cache
+.next
+
+# Dependency
+node_modules

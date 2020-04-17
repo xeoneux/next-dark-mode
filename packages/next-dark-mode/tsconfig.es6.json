@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "declaration": true,
+    "declarationDir": "es6",
+    "outDir": "es6"
+  },
+  "extends": "../../tsconfig.es6.json",
+  "include": ["src"]
+}

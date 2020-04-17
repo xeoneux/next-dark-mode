@@ -1,0 +1,47 @@
+{
+  "author": "Aayush Kapoor",
+  "bugs": {
+    "url": "https://github.com/xeoneux/next-dark-mode/issues"
+  },
+  "dependencies": {
+    "@assortment/darkmodejs": "1.2.0",
+    "nookies": "2.2.2"
+  },
+  "description": "Enable dark mode for Next.js",
+  "devDependencies": {
+    "@types/cookie": "0.3.3",
+    "@types/react": "16.9.34",
+    "concurrently": "5.1.0",
+    "next": "9.3.5",
+    "react": "16.13.1",
+    "react-dom": "16.13.1"
+  },
+  "homepage": "https://github.com/xeoneux/next-dark-mode",
+  "jsnext:main": "src/index.tsx",
+  "license": "MIT",
+  "main": "lib/index.js",
+  "main:src": "src/index.tsx",
+  "module": "es6/index.js",
+  "name": "next-dark-mode",
+  "peerDependencies": {
+    "next": ">=9.0.0",
+    "react": "*",
+    "react-dom": "*"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/xeoneux/next-dark-mode.git"
+  },
+  "scripts": {
+    "build": "yarn clean && concurrently yarn:build:tsc:*",
+    "build:tsc:es5": "tsc",
+    "build:tsc:es6": "tsc --project tsconfig.es6.json",
+    "clean": "rimraf lib es6 types",
+    "start": "concurrently yarn:start:tsc:*",
+    "start:tsc:es5": "yarn build:tsc:es5 --watch --preserveWatchOutput",
+    "start:tsc:es6": "yarn build:tsc:es6 --watch --preserveWatchOutput"
+  },
+  "source": "src/index.tsx",
+  "types": "es6/index.d.ts",
+  "version": "0.1.0"
+}
