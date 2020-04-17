@@ -1,7 +1,8 @@
 import darkmodejs from '@assortment/darkmodejs'
+import { NextComponentType } from 'next'
+import { AppContext } from 'next/app'
 import { parseCookies, setCookie } from 'nookies'
-import React, { useEffect } from 'react'
-import { AppContextType, AppPropsType } from 'next/dist/next-server/lib/utils'
+import React, { createContext, useEffect } from 'react'
 
 const THEMES = {
   AUTO: 'A',
@@ -15,11 +16,13 @@ const config = {
   debug: false,
 }
 
+const DarkModeContext = createContext(false)
+
 const isSupportedPreset = (mode: string) => [THEMES.DARK, THEMES.LIGHT].includes(mode)
 const isSupportedSelect = (mode: string) => [THEMES.AUTO, THEMES.DARK, THEMES.LIGHT].includes(mode)
 
-export default () => {
-  function NextDarkModeApp({ Component, pageProps }: AppPropsType) {
+export default (App: NextComponentType | any) => {
+  function NextDarkMode({ initialProps, ...props }: WrappedAppProps) {
     useEffect(() => {
       const { removeListeners } = darkmodejs({
         onChange: (activeTheme, themes) => {
@@ -43,11 +46,15 @@ export default () => {
       return removeListeners
     }, [])
 
-    return <Component {...pageProps} />
+    return (
+      <DarkModeContext.Provider value={false}>
+        <App {...props} {...initialProps} />
+      </DarkModeContext.Provider>
+    )
   }
 
-  NextDarkModeApp.getInitialProps = async ({ Component, ctx }: AppContextType) => {
-    const pageProps = Component.getInitialProps ? await Component.getInitialProps(ctx) : {}
+  NextDarkMode.getInitialProps = async ({ Component, ctx }: AppContext) => {
+    const initialProps = Component.getInitialProps ? await Component.getInitialProps(ctx) : {}
 
     if (typeof window === 'undefined') {
       let cookie = parseCookies(ctx)[config.cookieName]
@@ -59,15 +66,24 @@ export default () => {
       if (!isSupportedSelect(select)) select = THEMES.AUTO
       if (!isSupportedPreset(system)) system = THEMES.UNSET
 
-      cookie = preset + select + system
+      const newCookie = preset + select + system
 
-      setCookie(ctx, config.cookieName, cookie, { sameSite: true })
+      if (cookie !== newCookie) setCookie(ctx, config.cookieName, newCookie, {})
 
-      return { mode: cookie, pageProps }
+      const mode = select === 'auto' ? system || 'light' : select
+
+      return { nextDarkMode: mode === 'dark', initialProps }
     }
 
-    return { pageProps }
+    return { initialProps }
   }
 
-  return NextDarkModeApp
+  NextDarkMode.displayName = `withDarkMode(${App.displayName || App.name || 'App'})`
+
+  return NextDarkMode
+}
+
+export interface WrappedAppProps {
+  initialProps: any
+  nextDarkMode: boolean
 }

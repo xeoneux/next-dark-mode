@@ -26,7 +26,7 @@
   },
   "scripts": {
     "build": "lerna run build --stream",
-    "build:quick": "yarn build --scope=next-redux-wrapper",
+    "build:quick": "yarn build --scope=next-dark-mode",
     "clean": "lerna run clean && lerna clean --yes && rimraf node_modules",
     "lint": "eslint --cache --cache-location .eslint/cache --fix",
     "lint:all": "yarn lint 'packages/*/**/*.{ts,tsx}' 'packages/*/*.js'",
