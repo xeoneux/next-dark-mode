@@ -2,7 +2,13 @@ import { DarkModeContext } from 'next-dark-mode'
 import React, { Fragment, useContext } from 'react'
 
 export default function () {
-  const { mode, toggleAuto, toggleDark, toggleLight } = useContext(DarkModeContext)
+  const { autoMode, darkMode, toggleAuto, toggleDark, toggleLight } = useContext(DarkModeContext)
+
+  const findActive = (text: string): boolean => {
+    if (autoMode) return text === 'auto'
+    else if (darkMode) return text === 'dark'
+    else return text === 'light'
+  }
 
   const toggleMode = (text: string) => {
     if (text === 'Auto') toggleAuto()
@@ -11,12 +17,12 @@ export default function () {
   }
 
   return (
-    <div className={`layout ${mode}`}>
+    <div className={`layout ${darkMode ? 'dark' : 'light'}`}>
       <div className="switch">
         {['Auto', 'Dark', 'Light'].map((text, index) => (
           <Fragment key={index}>
             <input
-              checked={text.toLowerCase() === mode}
+              checked={findActive(text.toLowerCase())}
               id={`_${index}`}
               name="switch"
               onChange={() => toggleMode(text)}
