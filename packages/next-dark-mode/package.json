@@ -43,5 +43,5 @@
   },
   "source": "src/index.tsx",
   "types": "es6/index.d.ts",
-  "version": "0.4.0"
+  "version": "0.5.0"
 }

@@ -4,56 +4,70 @@ import { AppContext } from 'next/app'
 import { parseCookies, setCookie } from 'nookies'
 import React, { createContext, useEffect, useState } from 'react'
 
-const THEMES = {
-  AUTO: 'A',
-  DARK: 'D',
-  LIGHT: 'L',
-  UNSET: 'X',
+export enum MODE {
+  DARK = 'dark',
+  LIGHT = 'light',
 }
 
-const config = {
-  cookieName: 'nextDarkMode',
+export interface Config {
+  debug: boolean
+  defaultMode: MODE
+  cookieName: string
+}
+
+const defaultConfig: Config = {
   debug: false,
+  defaultMode: MODE.LIGHT,
+  cookieName: 'nextDarkMode',
 }
 
-export const DarkModeContext = createContext([
-  'auto',
-  { toggleAuto: () => {}, toggleDark: () => {}, toggleLight: () => {}, toggleNext: () => {} },
-])
+const validCookie = (cookie: string): boolean => !!cookie && typeof cookie === 'string'
+
+const getDarkMode = (cookieMode: string): MODE =>
+  validCookie(cookieMode) && (cookieMode === MODE.DARK || cookieMode === MODE.LIGHT)
+    ? cookieMode
+    : defaultConfig.defaultMode
+
+export const DarkModeContext = createContext<DarkModeContextConsumer>({
+  mode: defaultConfig.defaultMode,
+  toggleAuto: () => {},
+  toggleDark: () => {},
+  toggleLight: () => {},
+})
 
 DarkModeContext.displayName = 'NextDarkMode'
 
-const isSupportedPreset = (mode: string) => [THEMES.DARK, THEMES.LIGHT].includes(mode)
-const isSupportedSelect = (mode: string) => [THEMES.AUTO, THEMES.DARK, THEMES.LIGHT].includes(mode)
+export default (App: NextComponentType | any, config?: Partial<Config>) => {
+  const mergedConfig = { ...defaultConfig, ...config }
+  const { cookieName, defaultMode } = mergedConfig
 
-export default (App: NextComponentType | any) => {
   function NextDarkMode({ initialProps, ...props }: WrappedAppProps) {
-    const [darkModeState, toggleDarkModeState] = useState([
-      'auto',
-      {
-        toggleAuto: () => toggleDarkModeState(['auto', darkModeState[1]]),
-        toggleDark: () => toggleDarkModeState(['dark', darkModeState[1]]),
-        toggleLight: () => toggleDarkModeState(['light', darkModeState[1]]),
-        toggleNext: () => {},
-      },
-    ])
+    // TODO: Figure out if we should set it as null instead?
+    const [autoMode, setAutoMode] = useState(defaultMode)
+    const [darkModeState, setDarkModeState] = useState({
+      mode: defaultMode,
+      toggleAuto: () => setDarkModeState({ mode: autoMode, ...darkModeState }),
+      toggleDark: () => setDarkModeState({ mode: MODE.DARK, ...darkModeState }),
+      toggleLight: () => setDarkModeState({ mode: MODE.LIGHT, ...darkModeState }),
+    })
 
     useEffect(() => {
       const { removeListeners } = darkmodejs({
         onChange: (activeTheme, themes) => {
-          let cookie = parseCookies()[config.cookieName]
-          const [preset, select, system] = cookie.split('')
+          const nextDarkMode = getDarkMode(parseCookies()[cookieName])
+
           switch (activeTheme) {
             case themes.DARK:
-              if (system !== THEMES.DARK)
-                setCookie(null, config.cookieName, preset + select + THEMES.DARK, {})
+              if (nextDarkMode !== MODE.DARK) setCookie(null, cookieName, MODE.DARK, {})
+              setAutoMode(MODE.DARK)
               break
             case themes.LIGHT:
-              if (system !== THEMES.LIGHT)
-                setCookie(null, config.cookieName, preset + select + THEMES.LIGHT, {})
+              if (nextDarkMode !== MODE.LIGHT) setCookie(null, cookieName, MODE.LIGHT, {})
               break
             case themes.NO_PREF:
             case themes.NO_SUPP:
+              if (nextDarkMode !== defaultMode) setCookie(null, cookieName, defaultMode, {})
+              break
           }
         },
       })
@@ -72,20 +86,10 @@ export default (App: NextComponentType | any) => {
     const initialProps = Component.getInitialProps ? await Component.getInitialProps(ctx) : {}
 
     if (typeof window === 'undefined') {
-      let cookie = parseCookies(ctx)[config.cookieName]
+      const cookieMode = parseCookies(ctx)[cookieName]
+      const nextDarkMode = getDarkMode(cookieMode)
 
-      let [preset, select, system] =
-        cookie && cookie.length === 3 ? cookie.split('') : [THEMES.LIGHT, THEMES.AUTO, THEMES.UNSET]
-
-      if (!isSupportedPreset(preset)) preset = THEMES.LIGHT
-      if (!isSupportedSelect(select)) select = THEMES.AUTO
-      if (!isSupportedPreset(system)) system = THEMES.UNSET
-
-      const newCookie = preset + select + system
-
-      if (cookie !== newCookie) setCookie(ctx, config.cookieName, newCookie, {})
-
-      const nextDarkMode = select === THEMES.AUTO ? system || THEMES.LIGHT : select
+      if (cookieMode !== nextDarkMode) setCookie(ctx, cookieName, nextDarkMode, {})
 
       return { initialProps, nextDarkMode }
     }
@@ -98,7 +102,14 @@ export default (App: NextComponentType | any) => {
   return NextDarkMode
 }
 
+export interface DarkModeContextConsumer {
+  mode: MODE
+  toggleAuto: () => void
+  toggleDark: () => void
+  toggleLight: () => void
+}
+
 export interface WrappedAppProps {
   initialProps: any
-  nextDarkMode: boolean
+  nextDarkMode?: MODE
 }
