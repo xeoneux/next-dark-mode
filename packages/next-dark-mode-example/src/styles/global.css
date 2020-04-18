@@ -1,0 +1,93 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.layout {
+  align-items: center;
+  color: #808080;
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  transition: background-color 400ms ease;
+  width: 100vw;
+}
+
+.layout.dark {
+  background: #101010;
+}
+
+.layout.light {
+  background: #f5f5f5;
+}
+
+.switch {
+  align-items: center;
+  border: 0.25rem solid;
+  border-radius: 45px;
+  display: flex;
+  font-family: monospace;
+  height: 4.5rem;
+  justify-content: center;
+  padding: 0 2rem;
+  position: relative;
+  width: 28rem;
+}
+
+.layout.dark > .switch {
+  background: #282828;
+  border-color: #e0e0e0;
+}
+
+.layout.light > .switch {
+  background: #e0e0e0;
+  border-color: #282828;
+}
+
+.switch > .switch__label {
+  cursor: pointer;
+  font-size: 2rem;
+  padding: 2rem;
+  transition: color 200ms ease-out;
+  width: 4rem;
+}
+
+.layout.dark > .switch > .switch__label:hover {
+  color: #e0e0e0;
+}
+
+.layout.light > .switch > .switch__label:hover {
+  color: #282828;
+}
+
+.layout > .switch > .switch__indicator {
+  height: 8rem;
+  left: 0;
+  position: absolute;
+  transition: transform 600ms cubic-bezier(0.02, 0.94, 0.09, 0.97);
+  width: 8rem;
+}
+
+input[type='radio']:checked,
+input[type='radio']:not(:checked) {
+  display: none;
+}
+
+input#_0:checked ~ .switch__indicator {
+  background: url(../assets/auto.svg);
+  background-size: contain;
+  background-repeat: no-repeat;
+  transform: translate3d(3rem, 0, 0);
+}
+
+input#_1:checked ~ .switch__indicator {
+  background: url(../assets/dark.svg);
+  background-size: contain;
+  transform: translate3d(12rem, 0, 0);
+}
+
+input#_2:checked ~ .switch__indicator {
+  background: url(../assets/light.svg);
+  background-size: contain;
+  transform: translate3d(21rem, 0, 0);
+}

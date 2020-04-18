@@ -1,10 +1,6 @@
-import { AppProps } from 'next/app'
+import App from 'next/app'
 import withDarkMode from 'next-dark-mode'
 
-import '../styles/global.scss'
+import '../styles/global.css'
 
-function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
-}
-
-export default withDarkMode(MyApp)
+export default withDarkMode(App)

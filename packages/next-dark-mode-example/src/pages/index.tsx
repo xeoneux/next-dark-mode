@@ -9,22 +9,24 @@ export default function () {
   }
 
   return (
-    <div className="switch">
-      {['Auto', 'Dark', 'Light'].map((mode, index) => (
-        <Fragment key={index}>
-          <input
-            checked={mode.toLowerCase() === theme}
-            id={`_${index}`}
-            name="switch"
-            onChange={() => toggleMode(mode)}
-            type="radio"
-          />
-          <label className="switch__label" htmlFor={`_${index}`}>
-            {mode}
-          </label>
-        </Fragment>
-      ))}
-      <div className="switch__indicator" />
+    <div className={`layout ${theme}`}>
+      <div className="switch">
+        {['Auto', 'Dark', 'Light'].map((mode, index) => (
+          <Fragment key={index}>
+            <input
+              checked={mode.toLowerCase() === theme}
+              id={`_${index}`}
+              name="switch"
+              onChange={() => toggleMode(mode)}
+              type="radio"
+            />
+            <label className="switch__label" htmlFor={`_${index}`}>
+              {mode}
+            </label>
+          </Fragment>
+        ))}
+        <div className="switch__indicator" />
+      </div>
     </div>
   )
 }
