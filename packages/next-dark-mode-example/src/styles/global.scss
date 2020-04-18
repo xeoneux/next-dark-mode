@@ -21,9 +21,9 @@ body {
   &:before {
     content: '';
     background: #282828;
-    border: #e8e8e8 0.25rem solid;
-    border-radius: 60px;
-    height: 6rem;
+    border: #e0e0e0 0.25rem solid;
+    border-radius: 45px;
+    height: 4.5rem;
     position: absolute;
     width: 100%;
     z-index: -1;
@@ -35,7 +35,7 @@ body {
     transition: color 200ms ease-out;
     width: 4rem;
     &:hover {
-      color: #e8e8e8;
+      color: #e0e0e0;
     }
   }
   &__indicator {

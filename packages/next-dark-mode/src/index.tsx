@@ -38,8 +38,6 @@ export default (App: NextComponentType | any) => {
       },
     ])
 
-    console.log(props)
-
     useEffect(() => {
       const { removeListeners } = darkmodejs({
         onChange: (activeTheme, themes) => {
