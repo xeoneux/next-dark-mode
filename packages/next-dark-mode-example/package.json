@@ -5,14 +5,15 @@
   },
   "dependencies": {
     "next": "9.3.5",
-    "next-dark-mode": "^0.2.0",
+    "next-dark-mode": "0.3.0",
     "react": "16.13.1",
     "react-dom": "16.13.1"
   },
   "description": "Next Dark Mode example for Next.js",
   "devDependencies": {
     "@types/react": "16.9.34",
-    "@types/react-dom": "16.9.6"
+    "@types/react-dom": "16.9.6",
+    "sass": "^1.26.3"
   },
   "homepage": "https://github.com/xeoneux/next-dark-mode",
   "license": "MIT",

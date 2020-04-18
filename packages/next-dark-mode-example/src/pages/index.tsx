@@ -1,16 +1,30 @@
 import { DarkModeContext } from 'next-dark-mode'
-import React, { useContext } from 'react'
+import React, { Fragment, useContext } from 'react'
 
 export default function () {
   let [theme, methods] = useContext(DarkModeContext)
 
+  const toggleMode = (mode: string) => {
+    ;(methods as any)['toggle' + mode]()
+  }
+
   return (
-    <>
-      <h1>Hello World</h1>
-      <p>The theme is {theme}</p>
-      <p onClick={(methods as any).toggleAuto}>auto</p>
-      <p onClick={(methods as any).toggleDark}>dark</p>
-      <p onClick={(methods as any).toggleLight}>light</p>
-    </>
+    <div className="switch">
+      {['Auto', 'Dark', 'Light'].map((mode, index) => (
+        <Fragment key={index}>
+          <input
+            checked={mode.toLowerCase() === theme}
+            id={`_${index}`}
+            name="switch"
+            onChange={() => toggleMode(mode)}
+            type="radio"
+          />
+          <label className="switch__label" htmlFor={`_${index}`}>
+            {mode}
+          </label>
+        </Fragment>
+      ))}
+      <div className="switch__indicator" />
+    </div>
   )
 }
