@@ -1,0 +1,6 @@
+{
+  "environments": ["node", "chrome"],
+  "functionalSuites": "tests/functional/**/*.ts",
+  "suites": "tests/unit/**/*.ts",
+  "tunnel": "browserstack"
+}
