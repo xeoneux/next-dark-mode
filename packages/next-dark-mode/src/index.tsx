@@ -2,7 +2,7 @@ import darkmodejs from '@assortment/darkmodejs'
 import { NextComponentType } from 'next'
 import { AppContext } from 'next/app'
 import { parseCookies, setCookie } from 'nookies'
-import React, { createContext, useEffect } from 'react'
+import React, { createContext, useEffect, useState } from 'react'
 
 const THEMES = {
   AUTO: 'A',
@@ -16,13 +16,30 @@ const config = {
   debug: false,
 }
 
-const DarkModeContext = createContext(false)
+export const DarkModeContext = createContext([
+  'auto',
+  { toggleAuto: () => {}, toggleDark: () => {}, toggleLight: () => {}, toggleNext: () => {} },
+])
+
+DarkModeContext.displayName = 'NextDarkMode'
 
 const isSupportedPreset = (mode: string) => [THEMES.DARK, THEMES.LIGHT].includes(mode)
 const isSupportedSelect = (mode: string) => [THEMES.AUTO, THEMES.DARK, THEMES.LIGHT].includes(mode)
 
 export default (App: NextComponentType | any) => {
   function NextDarkMode({ initialProps, ...props }: WrappedAppProps) {
+    const [darkModeState, toggleDarkModeState] = useState([
+      'auto',
+      {
+        toggleAuto: () => toggleDarkModeState(['auto', darkModeState[1]]),
+        toggleDark: () => toggleDarkModeState(['dark', darkModeState[1]]),
+        toggleLight: () => toggleDarkModeState(['light', darkModeState[1]]),
+        toggleNext: () => {},
+      },
+    ])
+
+    console.log(props)
+
     useEffect(() => {
       const { removeListeners } = darkmodejs({
         onChange: (activeTheme, themes) => {
@@ -47,7 +64,7 @@ export default (App: NextComponentType | any) => {
     }, [])
 
     return (
-      <DarkModeContext.Provider value={false}>
+      <DarkModeContext.Provider value={darkModeState}>
         <App {...props} {...initialProps} />
       </DarkModeContext.Provider>
     )
@@ -70,9 +87,9 @@ export default (App: NextComponentType | any) => {
 
       if (cookie !== newCookie) setCookie(ctx, config.cookieName, newCookie, {})
 
-      const mode = select === 'auto' ? system || 'light' : select
+      const nextDarkMode = select === THEMES.AUTO ? system || THEMES.LIGHT : select
 
-      return { nextDarkMode: mode === 'dark', initialProps }
+      return { initialProps, nextDarkMode }
     }
 
     return { initialProps }
