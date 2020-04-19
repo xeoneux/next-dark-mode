@@ -5,7 +5,7 @@
   },
   "dependencies": {
     "next": "^9.3.5",
-    "next-dark-mode": "^0.6.0",
+    "next-dark-mode": "^0.7.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
   },
@@ -28,5 +28,5 @@
     "serve": "next start",
     "start": "next"
   },
-  "version": "0.6.0"
+  "version": "0.7.0"
 }
