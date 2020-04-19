@@ -3,6 +3,7 @@ es6
 lib
 
 # Cache
+.eslint
 .next
 
 # Dependency

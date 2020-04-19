@@ -4,6 +4,10 @@
 
 Enable Dark Mode for Next.js
 
+<p>
+  <img src="./assets/next-dark-mode.gif">
+</p>
+
 It uses cookies to persist the state of the current theme.
 
 Gets you that dark mode without the page load glitch and supports auto mode that switches the user's theme based on the OS.
