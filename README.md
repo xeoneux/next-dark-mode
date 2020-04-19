@@ -1,6 +1,6 @@
 <div align="center">
 
-# next-dark-mode
+# `next-dark-mode`
 
 🌓 Theme your Next.js apps with a Dark Mode
 
@@ -10,11 +10,19 @@
 
 <img src="./assets/next-dark-mode.gif">
 
-next-dark-mode uses cookies to persist the state of the current theme. This prevents the page load glitch and supports an auto mode that switches the user's theme automatically, based on the operating system.
-
 </div>
 
-## Requirement
+`next-dark-mode` uses cookies to persist the state of the current theme. This prevents the page load glitch and supports an auto mode that switches the user's theme automatically, based on the operating system.
+
+## Contents:
+
+- [Requirements](#requirements)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Configuration](#configuration)
+- [Resources](#resources)
+
+## Requirements
 
 To use `next-dark-mode`, you must use `react@16.8.0` or greater which includes [Hooks](https://reactjs.org/docs/hooks-intro.html).
 
@@ -37,7 +45,7 @@ $ npm install next-dark-mode
    import App from 'next/app'
    import withDarkMode from 'next-dark-mode'
 
-   export default withDarkMode(MyApp)
+   export default withDarkMode(App)
    ```
 
    or perhaps a custom next app component
@@ -70,6 +78,17 @@ $ npm install next-dark-mode
      } = useContext(NextDarkModeContext)
    }
    ```
+
+## Configuration
+
+The `withDarkMode` function accepts a `config` object as its second argument. Every key is optional with default values mentioned:
+
+- `autoModeCookieName`: string - Name of the cookie used to determine whether the auto preset is enabled.
+  Defaults to `'autoMode'`
+- `darkModeCookieName`: string - Name of the cookie used to determine whether the dark preset is enabled.
+  Defaults to `'darkMode'`
+- `debug`: boolean - Prints `next-dark-mode`'s debug statements to the console
+- `defaultMode`: string - Determines the default color mode when there's no cookie set on the client. This usually happens on the first ever page load. It can either be `'dark'` or `'light'` and it defaults to `'light'`
 
 ## Resources
 
