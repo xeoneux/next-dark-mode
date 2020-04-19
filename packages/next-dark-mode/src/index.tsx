@@ -24,9 +24,9 @@ const defaultConfig: Config = {
 }
 
 export const NextDarkModeContext = createContext<NextDarkModeContextConsumer>({
-  isAutoModeEnabled: true,
-  isAutoModeSupported: true,
-  isDarkModeEnabled: defaultConfig.defaultMode === MODE.DARK,
+  autoModeActive: true,
+  autoModeSupported: true,
+  darkModeActive: defaultConfig.defaultMode === MODE.DARK,
   switchToAutoMode: () => {},
   switchToDarkMode: () => {},
   switchToLightMode: () => {},
@@ -40,22 +40,23 @@ export default (App: NextComponentType | any, config?: Partial<Config>) => {
 
   function NextDarkMode({ initialProps, ...props }: WrappedAppProps) {
     const [state, setState] = useState({
-      isAutoModeEnabled: !!props.autoMode,
-      isAutoModeSupported: true,
-      isDarkModeEnabled: !!props.darkMode,
+      autoModeActive: !!props.autoMode,
+      autoModeSupported: true,
+      browserMode: defaultMode,
+      darkModeActive: !!props.darkMode,
       switchToAutoMode: () => {
-        if (state.isAutoModeSupported) {
-          setState({ ...state, isAutoModeEnabled: true })
+        if (state.autoModeSupported) {
+          setState(state => ({ ...state, autoModeActive: true, darkModeActive: state.browserMode === MODE.DARK }))
           setCookie(null, autoModeCookieName, '1', {})
         }
       },
       switchToDarkMode: () => {
-        setState({ ...state, isAutoModeEnabled: false, isDarkModeEnabled: true })
+        setState(state => ({ ...state, autoModeActive: false, darkModeActive: true }))
         setCookie(null, autoModeCookieName, '0', {})
         setCookie(null, darkModeCookieName, '1', {})
       },
       switchToLightMode: () => {
-        setState({ ...state, isAutoModeEnabled: false, isDarkModeEnabled: false })
+        setState(state => ({ ...state, autoModeActive: false, darkModeActive: false }))
         setCookie(null, autoModeCookieName, '0', {})
         setCookie(null, darkModeCookieName, '0', {})
       },
@@ -66,20 +67,22 @@ export default (App: NextComponentType | any, config?: Partial<Config>) => {
         onChange: (activeTheme, themes) => {
           switch (activeTheme) {
             case themes.DARK:
-              if (state.isAutoModeEnabled && state.isAutoModeEnabled && !state.isDarkModeEnabled) {
-                setState({ ...state, isDarkModeEnabled: true })
+              setState(state => ({ ...state, browserMode: MODE.DARK }))
+              if (state.autoModeActive && !state.darkModeActive) {
+                setState(state => ({ ...state, darkModeActive: true }))
                 setCookie(null, darkModeCookieName, '1', {})
               }
               break
             case themes.LIGHT:
-              if (state.isAutoModeEnabled && state.isAutoModeEnabled && state.isDarkModeEnabled) {
-                setState({ ...state, isDarkModeEnabled: false })
+              setState(state => ({ ...state, browserMode: MODE.LIGHT }))
+              if (state.autoModeActive && state.darkModeActive) {
+                setState(state => ({ ...state, darkModeActive: false }))
                 setCookie(null, darkModeCookieName, '0', {})
               }
               break
             case themes.NO_PREF:
             case themes.NO_SUPP:
-              setState({ ...state, isAutoModeSupported: false })
+              setState(state => ({ ...state, autoModeSupported: false }))
               setCookie(null, autoModeCookieName, '0', {})
               break
           }
@@ -126,9 +129,9 @@ export default (App: NextComponentType | any, config?: Partial<Config>) => {
 }
 
 export interface NextDarkModeContextConsumer {
-  isAutoModeEnabled: boolean
-  isAutoModeSupported: boolean
-  isDarkModeEnabled: boolean
+  autoModeActive: boolean
+  autoModeSupported: boolean
+  darkModeActive: boolean
   switchToAutoMode: () => void
   switchToDarkMode: () => void
   switchToLightMode: () => void

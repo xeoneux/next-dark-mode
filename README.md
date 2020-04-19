@@ -69,9 +69,9 @@ $ npm install next-dark-mode
 
    const functionComponent = props => {
      const {
-       isAutoModeEnabled,
-       isAutoModeSupported,
-       isDarkModeEnabled,
+       autoModeActive,
+       autoModeSupported,
+       darkModeActive,
        switchToAutoMode,
        switchToDarkMode,
        switchToLightMode,
