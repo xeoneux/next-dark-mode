@@ -1,14 +1,19 @@
 {
   "compilerOptions": {
     "allowJs": true,
+    "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": true,
     "jsx": "preserve",
+    "lib": ["dom", "es2015"],
     "module": "esnext",
+    "moduleResolution": "node",
     "noEmit": true,
-    "skipLibCheck": true
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "target": "es5"
   },
   "exclude": ["node_modules"],
-  "extends": "../../tsconfig.json",
-  "include": ["src/pages", "src/components"]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"]
 }

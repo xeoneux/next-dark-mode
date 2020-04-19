@@ -5,6 +5,7 @@ lib
 # Cache
 .eslint
 .next
+.now
 
 # Dependency
 node_modules
