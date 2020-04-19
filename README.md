@@ -1,16 +1,18 @@
+<div align="center">
+
 # next-dark-mode
 
+🌓 Theme your Next.js apps with a Dark Mode
+
+[![license](https://img.shields.io/npm/l/next-dark-mode?style=for-the-badge)](https://github.com/xeoneux/next-dark-mode/blob/master/LICENSE)
+[![npm bundle size](https://img.shields.io/bundlephobia/minzip/next-dark-mode?style=for-the-badge)](https://bundlephobia.com/result?p=next-dark-mode)
 [![npm version](https://img.shields.io/npm/v/next-dark-mode?style=for-the-badge)](https://www.npmjs.com/package/next-dark-mode)
 
-Enable Dark Mode for Next.js
+<img src="./assets/next-dark-mode.gif">
 
-<p>
-  <img src="./assets/next-dark-mode.gif">
-</p>
+next-dark-mode uses cookies to persist the state of the current theme. This prevents the page load glitch and supports an auto mode that switches the user's theme automatically, based on the operating system.
 
-It uses cookies to persist the state of the current theme.
-
-Gets you that dark mode without the page load glitch and supports auto mode that switches the user's theme based on the OS.
+</div>
 
 ## Requirement
 
@@ -28,13 +30,49 @@ $ npm install next-dark-mode
 
 ## Usage
 
-```js
-// _app.js
-import withDarkMode from 'next-dark-mode'
+1. Wrap your [\_app.js](https://nextjs.org/docs/advanced-features/custom-app) component (located in `/pages`) with the [HOC](https://reactjs.org/docs/higher-order-components.html) `withDarkMode`
 
-function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />
-}
+   ```js
+   // _app.js
+   import App from 'next/app'
+   import withDarkMode from 'next-dark-mode'
 
-export default withDarkMode(MyApp)
-```
+   export default withDarkMode(MyApp)
+   ```
+
+   or perhaps a custom next app component
+
+   ```js
+   // _app.js
+   import withDarkMode from 'next-dark-mode'
+
+   function MyApp({ Component, pageProps }) {
+     return <Component {...pageProps} />
+   }
+
+   export default withDarkMode(MyApp)
+   ```
+
+2. You can now use the `NextDarkModeContext` [context](https://reactjs.org/docs/context.html) to get the supported values through the `useContext` hook
+
+   ```js
+   import { NextDarkModeContext } from 'next-dark-mode'
+   import React, { useContext } from 'react'
+
+   const functionComponent = props => {
+     const {
+       isAutoModeEnabled,
+       isAutoModeSupported,
+       isDarkModeEnabled,
+       switchToAutoMode,
+       switchToDarkMode,
+       switchToLightMode,
+     } = useContext(NextDarkModeContext)
+   }
+   ```
+
+## Resources
+
+- [CSS-Tricks | Dark Mode in CSS](https://css-tricks.com/dark-modes-with-css)
+- [prefers-color-scheme: Hello darkness, my old friend](https://web.dev/prefers-color-scheme)
+- [Browsers Are Bringing Automatic Dark Mode to Websites](https://www.howtogeek.com/440920/browsers-are-bringing-automatic-dark-mode-to-websites)
