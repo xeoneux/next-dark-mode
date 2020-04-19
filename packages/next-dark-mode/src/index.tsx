@@ -12,14 +12,12 @@ export enum MODE {
 export interface Config {
   autoModeCookieName: string
   darkModeCookieName: string
-  debug: boolean
   defaultMode: MODE
 }
 
 const defaultConfig: Config = {
   autoModeCookieName: 'autoMode',
   darkModeCookieName: 'darkMode',
-  debug: false,
   defaultMode: MODE.LIGHT,
 }
 
