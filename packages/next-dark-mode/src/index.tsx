@@ -39,14 +39,18 @@ export default (App: NextComponentType | any, config?: Partial<Config>) => {
   function NextDarkMode({ initialProps, ...props }: WrappedAppProps) {
     const [state, setState] = useState({
       autoModeActive: !!props.autoMode,
-      autoModeSupported: true,
+      autoModeSupported: false,
       browserMode: defaultMode,
       darkModeActive: !!props.darkMode,
       switchToAutoMode: () => {
-        if (state.autoModeSupported) {
-          setState(state => ({ ...state, autoModeActive: true, darkModeActive: state.browserMode === MODE.DARK }))
-          setCookie(null, autoModeCookieName, '1', {})
-        }
+        setState(state => {
+          if (state.autoModeSupported) {
+            setCookie(null, autoModeCookieName, '1', {})
+            return { ...state, autoModeActive: true, darkModeActive: state.browserMode === MODE.DARK }
+          }
+
+          return { ...state }
+        })
       },
       switchToDarkMode: () => {
         setState(state => ({ ...state, autoModeActive: false, darkModeActive: true }))
@@ -65,23 +69,25 @@ export default (App: NextComponentType | any, config?: Partial<Config>) => {
         onChange: (activeTheme, themes) => {
           switch (activeTheme) {
             case themes.DARK:
-              setState(state => ({ ...state, browserMode: MODE.DARK }))
-              if (state.autoModeActive && !state.darkModeActive) {
-                setState(state => ({ ...state, darkModeActive: true }))
-                setCookie(null, darkModeCookieName, '1', {})
-              }
+              setState(state => {
+                if (state.autoModeSupported) {
+                  setCookie(null, darkModeCookieName, '1', {})
+                  return { ...state, darkModeActive: true }
+                } else return { ...state, autoModeSupported: true, browserMode: MODE.DARK }
+              })
               break
             case themes.LIGHT:
-              setState(state => ({ ...state, browserMode: MODE.LIGHT }))
-              if (state.autoModeActive && state.darkModeActive) {
-                setState(state => ({ ...state, darkModeActive: false }))
-                setCookie(null, darkModeCookieName, '0', {})
-              }
+              setState(state => {
+                if (state.autoModeSupported) {
+                  setCookie(null, darkModeCookieName, '0', {})
+                  return { ...state, darkModeActive: false }
+                } else return { ...state, autoModeSupported: true, browserMode: MODE.LIGHT }
+              })
               break
             case themes.NO_PREF:
             case themes.NO_SUPP:
-              setState(state => ({ ...state, autoModeSupported: false }))
               setCookie(null, autoModeCookieName, '0', {})
+              setState(state => ({ ...state, autoModeSupported: false }))
               break
           }
         },
