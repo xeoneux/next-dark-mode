@@ -25,23 +25,19 @@
 
 <img align="right" width="50%" src="./assets/feature-auto.gif" />
 
-`next-dark-mode` supports an **auto mode** which switches the user's theme automatically based on the color mode selected on their operating system.
+1. `next-dark-mode` supports an **auto mode** which switches the user's theme automatically based on the color mode selected on their operating system.
 
 [Windows](https://blogs.windows.com/windowsexperience/2016/08/08/windows-10-tip-personalize-your-pc-by-enabling-the-dark-theme) and [macOS](https://support.apple.com/en-in/HT208976) both support setting the dark or light mode based on the time of the day (or sunrise and sunset time).
 
 This is achieved through the `prefers-color-scheme` media query (more info in the resources section of this README).
 
-<br />
-
 <img align="right" width="50%" src="./assets/feature-cookies.gif" />
 
-`next-dark-mode` uses configurable **cookies** to persist the state of the current theme, one for the _auto mode_ and the other for the _dark mode_.
+2. `next-dark-mode` uses configurable **cookies** to persist the state of the current theme, one for the _auto mode_ and the other for the _dark mode_.
 
 This prevents the common page load glitch with the local storage approach where the app loads on the client and then the state of the user's theme is fetched.
 
 You can see the page load glitch in this local storage implementation by [Pantaley Stoyanov](https://pantaley.com).
-
-<br />
 
 ## Requirements
 
