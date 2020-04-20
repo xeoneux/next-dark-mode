@@ -23,11 +23,29 @@
 
 ## Features
 
-<img align="left" width="50%" src="./assets/feature-cookies.gif" />
-
 <img align="right" width="50%" src="./assets/feature-auto.gif" />
 
-`next-dark-mode` uses cookies to persist the state of the current theme. This prevents the page load glitch and supports an auto mode that switches the user's theme automatically, based on the operating system.
+`next-dark-mode` supports an auto mode which switches the user's theme automatically based on the color mode selected on their operating system.
+
+Windows and macOS both support setting the dark or light mode based on the time of the day (or sunrise and sunset time).
+
+This is achieved through the `prefers-color-scheme` media query (more info in the resources section of this README).
+
+<br />
+<br />
+<br />
+
+<img align="right" width="50%" src="./assets/feature-cookies.gif" />
+
+`next-dark-mode` uses cookies to persist the state of the current theme, one for auto mode and the other for dark mode.
+
+This prevents the common page load glitch with the local storage approach where the app loads on the client and then the state of the user's theme is fetched.
+
+You can see the page load glitch in this local storage implementation by [Pantaley Stoyanov](https://pantaley.com).
+
+<br />
+<br />
+<br />
 
 ## Requirements
 
@@ -101,3 +119,4 @@ The `withDarkMode` function accepts a `config` object as its second argument. Ev
 - [CSS-Tricks | Dark Mode in CSS](https://css-tricks.com/dark-modes-with-css)
 - [prefers-color-scheme: Hello darkness, my old friend](https://web.dev/prefers-color-scheme)
 - [Browsers Are Bringing Automatic Dark Mode to Websites](https://www.howtogeek.com/440920/browsers-are-bringing-automatic-dark-mode-to-websites)
+- [Create a dark mode in React with CSS variables and localStorage](https://pantaley.com/blog/Create-a-dark-mode-in-React-with-CSS-variables-and-localStorage)
