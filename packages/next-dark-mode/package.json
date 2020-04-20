@@ -36,7 +36,7 @@
     "build": "yarn clean && concurrently yarn:build:tsc:*",
     "build:tsc:es5": "tsc",
     "build:tsc:es6": "tsc --project tsconfig.es6.json",
-    "clean": "rimraf lib es6 types",
+    "clean": "rimraf lib es6",
     "start": "concurrently yarn:start:tsc:*",
     "start:tsc:es5": "yarn build:tsc:es5 --watch --preserveWatchOutput",
     "start:tsc:es6": "yarn build:tsc:es6 --watch --preserveWatchOutput"

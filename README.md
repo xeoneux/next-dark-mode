@@ -12,10 +12,13 @@
 
 </div>
 
+## Features
+
 `next-dark-mode` uses cookies to persist the state of the current theme. This prevents the page load glitch and supports an auto mode that switches the user's theme automatically, based on the operating system.
 
 ## Contents:
 
+- [Features](#features)
 - [Requirements](#requirements)
 - [Installation](#installation)
 - [Usage](#usage)
