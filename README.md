@@ -8,13 +8,9 @@
 [![npm bundle size](https://img.shields.io/bundlephobia/minzip/next-dark-mode?style=for-the-badge)](https://bundlephobia.com/result?p=next-dark-mode)
 [![npm version](https://img.shields.io/npm/v/next-dark-mode?style=for-the-badge)](https://www.npmjs.com/package/next-dark-mode)
 
-<img src="./assets/next-dark-mode.gif">
+<img src="./assets/next-dark-mode.gif" />
 
 </div>
-
-## Features
-
-`next-dark-mode` uses cookies to persist the state of the current theme. This prevents the page load glitch and supports an auto mode that switches the user's theme automatically, based on the operating system.
 
 ## Contents:
 
@@ -24,6 +20,14 @@
 - [Usage](#usage)
 - [Configuration](#configuration)
 - [Resources](#resources)
+
+## Features
+
+<img align="left" width="50%" src="./assets/feature-cookies.gif" />
+
+<img align="right" width="50%" src="./assets/feature-auto.gif" />
+
+`next-dark-mode` uses cookies to persist the state of the current theme. This prevents the page load glitch and supports an auto mode that switches the user's theme automatically, based on the operating system.
 
 ## Requirements
 
