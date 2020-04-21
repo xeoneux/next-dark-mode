@@ -46,7 +46,10 @@ export default (App: NextComponentType | any, config?: Partial<Config>) => {
         setState(state => {
           if (state.autoModeSupported) {
             setCookie(null, autoModeCookieName, '1', {})
-            return { ...state, autoModeActive: true, darkModeActive: state.browserMode === MODE.DARK }
+            const darkModeActive = state.browserMode === MODE.DARK
+            setCookie(null, darkModeCookieName, darkModeActive ? '1' : '0', {})
+
+            return { ...state, autoModeActive: true, darkModeActive }
           }
 
           return { ...state }
@@ -72,7 +75,7 @@ export default (App: NextComponentType | any, config?: Partial<Config>) => {
               setState(state => {
                 if (state.autoModeSupported) {
                   setCookie(null, darkModeCookieName, '1', {})
-                  return { ...state, darkModeActive: true }
+                  return { ...state, browserMode: MODE.DARK, darkModeActive: true }
                 } else return { ...state, autoModeSupported: true, browserMode: MODE.DARK }
               })
               break
@@ -80,7 +83,7 @@ export default (App: NextComponentType | any, config?: Partial<Config>) => {
               setState(state => {
                 if (state.autoModeSupported) {
                   setCookie(null, darkModeCookieName, '0', {})
-                  return { ...state, darkModeActive: false }
+                  return { ...state, browserMode: MODE.LIGHT, darkModeActive: false }
                 } else return { ...state, autoModeSupported: true, browserMode: MODE.LIGHT }
               })
               break
