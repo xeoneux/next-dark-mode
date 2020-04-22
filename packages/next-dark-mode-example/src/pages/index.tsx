@@ -1,10 +1,8 @@
-import { DarkModeContext } from 'next-dark-mode'
-import React, { Fragment, useContext } from 'react'
+import { useDarkMode } from 'next-dark-mode'
+import React, { Fragment } from 'react'
 
 export default function () {
-  const { autoModeActive, darkModeActive, switchToAutoMode, switchToDarkMode, switchToLightMode } = useContext(
-    DarkModeContext
-  )
+  const { autoModeActive, darkModeActive, switchToAutoMode, switchToDarkMode, switchToLightMode } = useDarkMode()
 
   const findActive = (text: string): boolean => {
     if (autoModeActive) return text === 'auto'

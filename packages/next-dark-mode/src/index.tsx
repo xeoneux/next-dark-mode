@@ -5,7 +5,7 @@ import { parseCookies, setCookie } from 'nookies'
 import React, { useEffect, useState } from 'react'
 
 import { defaultConfig, Config, MODE } from './config'
-import { DarkModeContext } from './darkModeContext'
+import { DarkModeContext, useDarkMode } from './darkModeContext'
 
 interface AppProps {
   autoMode?: boolean
@@ -113,4 +113,4 @@ export default (App: NextComponentType | any, config?: Partial<Config>) => {
   return DarkMode
 }
 
-export { DarkModeContext }
+export { useDarkMode }

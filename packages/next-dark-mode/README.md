@@ -71,26 +71,12 @@ $ npm install next-dark-mode
    export default withDarkMode(App)
    ```
 
-   or perhaps a custom next app component
+2) You can now use the `useDarkMode` hook
 
    ```js
-   // _app.js
-   import withDarkMode from 'next-dark-mode'
+   import { useDarkMode } from 'next-dark-mode'
 
-   function MyApp({ Component, pageProps }) {
-     return <Component {...pageProps} />
-   }
-
-   export default withDarkMode(MyApp)
-   ```
-
-2. You can now use the `DarkModeContext` [context](https://reactjs.org/docs/context.html) to get the supported values through the `useContext` hook
-
-   ```js
-   import { DarkModeContext } from 'next-dark-mode'
-   import React, { useContext } from 'react'
-
-   const functionComponent = props => {
+   const MyComponent = props => {
      const {
        autoModeActive,
        autoModeSupported,
@@ -98,7 +84,9 @@ $ npm install next-dark-mode
        switchToAutoMode,
        switchToDarkMode,
        switchToLightMode,
-     } = useContext(DarkModeContext)
+     } = useDarkMode()
+
+    ...
    }
    ```
 
@@ -111,7 +99,7 @@ The `withDarkMode` function accepts a `config` object as its second argument. Ev
 - `darkModeCookieName`: string - Name of the cookie used to determine whether the dark preset is enabled.
   Defaults to `'darkMode'`.
 - `defaultMode`: string - Determines the default color mode when there's no cookie set on the client. This usually happens on the first ever page load. It can either be `'dark'` or `'light'` and it defaults to `'light'`.
-- `provider`: boolean - By default the main App is wrapped in a `DarkModeContext.Provider` to utilize the `useContext` hook. If you want to use the library with a CSS-in-JS solution like [emotion](https://github.com/emotion-js/emotion) or [styled-components](https://github.com/styled-components/styled-components), you can disable the default provider. Defaults to `true`.
+- `provider`: boolean - By default the main App is wrapped in a `DarkModeContext.Provider` to utilize the `useDarkMode` hook. If you want to use the library with a CSS-in-JS solution like [emotion](https://github.com/emotion-js/emotion) or [styled-components](https://github.com/styled-components/styled-components), you can disable the default provider. Defaults to `true`.
 
 ## Resources
 

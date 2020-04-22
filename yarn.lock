@@ -7088,14 +7088,6 @@ neo-async@^2.5.0, neo-async@^2.6.0, neo-async@^2.6.1:
   resolved "https://registry.yarnpkg.com/neo-async/-/neo-async-2.6.1.tgz#ac27ada66167fa8849a6addd837f6b189ad2081c"
   integrity sha512-iyam8fBuCUpWeKPGpaNMetEocMt364qkCsfL9JuhjXX6dRnguRVOfk2GZaDpPjcOKiiXCPINZC1GczQ7iTq3Zw==
 
-next-dark-mode@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/next-dark-mode/-/next-dark-mode-2.0.0.tgz#2efd2b318df1b715a9d2266ba55d6bec9437a184"
-  integrity sha512-JciFqseW82BlabpaEeS/BhTNqY7dIOIEkyWsibr9EamjXeVcdYXNUpa+qr0AObXO+wgEwTj0LZvftgVk/3Kvgg==
-  dependencies:
-    "@assortment/darkmodejs" "^1.2.0"
-    nookies "^2.2.2"
-
 next-tick@~1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/next-tick/-/next-tick-1.0.0.tgz#ca86d1fe8828169b0120208e3dc8424b9db8342c"
