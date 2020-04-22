@@ -43,6 +43,8 @@ This prevents the common page load glitch with the local storage approach where 
 
 You can see it in this implementation by [Pantaley Stoyanov](https://pantaley.com).
 
+NOTE: This library is not compatible with [Next.js 9's Auto Partial Static Export](https://nextjs.org/blog/next-9#automatic-partial-static-export) feature as it has to read the cookie in `getInitialProps` function, which makes all pages incompatible with Automatic Partial Static Export feature.
+
 ## Requirements
 
 To use `next-dark-mode`, you must use `react@16.8.0` or greater which includes [Hooks](https://reactjs.org/docs/hooks-intro.html).

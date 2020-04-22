@@ -14,14 +14,14 @@ interface AppProps {
 }
 
 export default (App: NextComponentType | any, config?: Partial<Config>) => {
-  const { autoModeCookieName, darkModeCookieName, defaultMode } = { ...defaultConfig, ...config }
+  const { autoModeCookieName, darkModeCookieName, defaultMode, provider } = { ...defaultConfig, ...config }
 
-  function DarkMode({ initialProps, ...props }: AppProps) {
+  function DarkMode({ autoMode, darkMode, initialProps, ...props }: AppProps) {
     const [state, setState] = useState({
-      autoModeActive: !!props.autoMode,
+      autoModeActive: !!autoMode,
       autoModeSupported: false,
       browserMode: defaultMode,
-      darkModeActive: !!props.darkMode,
+      darkModeActive: !!darkMode,
       switchToAutoMode: () => {
         setState(state => {
           if (state.autoModeSupported) {
@@ -79,11 +79,9 @@ export default (App: NextComponentType | any, config?: Partial<Config>) => {
       return removeListeners
     }, [])
 
-    return (
-      <DarkModeContext.Provider value={state}>
-        <App {...props} {...initialProps} />
-      </DarkModeContext.Provider>
-    )
+    const app = <App {...state} {...props} {...initialProps} />
+
+    return provider ? <DarkModeContext.Provider value={state}>{app}</DarkModeContext.Provider> : app
   }
 
   DarkMode.getInitialProps = async ({ Component, ctx }: AppContext) => {
