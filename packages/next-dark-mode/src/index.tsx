@@ -56,7 +56,15 @@ export default (App: NextComponentType | any, config?: Partial<Config>) => {
                 if (state.autoModeSupported) {
                   setCookie(null, darkModeCookieName, '1', {})
                   return { ...state, browserMode: MODE.DARK, darkModeActive: true }
-                } else return { ...state, autoModeSupported: true, browserMode: MODE.DARK }
+                } else {
+                  if (state.autoModeActive) setCookie(null, darkModeCookieName, '1', {})
+                  return {
+                    ...state,
+                    autoModeSupported: true,
+                    browserMode: MODE.DARK,
+                    darkModeActive: state.autoModeActive ? true : state.darkModeActive,
+                  }
+                }
               })
               break
             case themes.LIGHT:
@@ -64,7 +72,15 @@ export default (App: NextComponentType | any, config?: Partial<Config>) => {
                 if (state.autoModeSupported) {
                   setCookie(null, darkModeCookieName, '0', {})
                   return { ...state, browserMode: MODE.LIGHT, darkModeActive: false }
-                } else return { ...state, autoModeSupported: true, browserMode: MODE.LIGHT }
+                } else {
+                  if (state.autoModeActive) setCookie(null, darkModeCookieName, '0', {})
+                  return {
+                    ...state,
+                    autoModeSupported: true,
+                    browserMode: MODE.LIGHT,
+                    darkModeActive: state.autoModeActive ? false : state.darkModeActive,
+                  }
+                }
               })
               break
             case themes.NO_PREF:
@@ -113,4 +129,4 @@ export default (App: NextComponentType | any, config?: Partial<Config>) => {
   return DarkMode
 }
 
-export { useDarkMode }
+export { MODE, useDarkMode }
