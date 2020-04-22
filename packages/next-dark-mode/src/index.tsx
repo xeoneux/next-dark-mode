@@ -79,7 +79,7 @@ export default (App: NextComponentType | any, config?: Partial<Config>) => {
       return removeListeners
     }, [])
 
-    const app = <App {...state} {...props} {...initialProps} />
+    const app = <App darkMode={state} {...props} {...initialProps} />
 
     return provider ? <DarkModeContext.Provider value={state}>{app}</DarkModeContext.Provider> : app
   }
