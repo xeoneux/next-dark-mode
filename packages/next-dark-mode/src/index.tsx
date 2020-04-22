@@ -2,41 +2,21 @@ import darkmodejs from '@assortment/darkmodejs'
 import { NextComponentType } from 'next'
 import { AppContext } from 'next/app'
 import { parseCookies, setCookie } from 'nookies'
-import React, { createContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
-export enum MODE {
-  DARK = 'dark',
-  LIGHT = 'light',
+import { defaultConfig, Config, MODE } from './config'
+import { DarkModeContext } from './darkModeContext'
+
+interface AppProps {
+  autoMode?: boolean
+  darkMode?: boolean
+  initialProps: any
 }
-
-export interface Config {
-  autoModeCookieName: string
-  darkModeCookieName: string
-  defaultMode: MODE
-}
-
-const defaultConfig: Config = {
-  autoModeCookieName: 'autoMode',
-  darkModeCookieName: 'darkMode',
-  defaultMode: MODE.LIGHT,
-}
-
-export const NextDarkModeContext = createContext<NextDarkModeContextConsumer>({
-  autoModeActive: true,
-  autoModeSupported: true,
-  darkModeActive: defaultConfig.defaultMode === MODE.DARK,
-  switchToAutoMode: () => {},
-  switchToDarkMode: () => {},
-  switchToLightMode: () => {},
-})
-
-NextDarkModeContext.displayName = 'NextDarkMode'
 
 export default (App: NextComponentType | any, config?: Partial<Config>) => {
-  const mergedConfig = { ...defaultConfig, ...config }
-  const { autoModeCookieName, darkModeCookieName, defaultMode } = mergedConfig
+  const { autoModeCookieName, darkModeCookieName, defaultMode } = { ...defaultConfig, ...config }
 
-  function NextDarkMode({ initialProps, ...props }: WrappedAppProps) {
+  function DarkMode({ initialProps, ...props }: AppProps) {
     const [state, setState] = useState({
       autoModeActive: !!props.autoMode,
       autoModeSupported: false,
@@ -100,13 +80,13 @@ export default (App: NextComponentType | any, config?: Partial<Config>) => {
     }, [])
 
     return (
-      <NextDarkModeContext.Provider value={state}>
+      <DarkModeContext.Provider value={state}>
         <App {...props} {...initialProps} />
-      </NextDarkModeContext.Provider>
+      </DarkModeContext.Provider>
     )
   }
 
-  NextDarkMode.getInitialProps = async ({ Component, ctx }: AppContext) => {
+  DarkMode.getInitialProps = async ({ Component, ctx }: AppContext) => {
     const initialProps = Component.getInitialProps ? await Component.getInitialProps(ctx) : {}
 
     if (typeof window === 'undefined') {
@@ -130,22 +110,9 @@ export default (App: NextComponentType | any, config?: Partial<Config>) => {
     return { initialProps }
   }
 
-  NextDarkMode.displayName = `withDarkMode(${App.displayName || App.name || 'App'})`
+  DarkMode.displayName = `withDarkMode(${App.displayName || App.name || 'App'})`
 
-  return NextDarkMode
+  return DarkMode
 }
 
-export interface NextDarkModeContextConsumer {
-  autoModeActive: boolean
-  autoModeSupported: boolean
-  darkModeActive: boolean
-  switchToAutoMode: () => void
-  switchToDarkMode: () => void
-  switchToLightMode: () => void
-}
-
-export interface WrappedAppProps {
-  autoMode?: boolean
-  darkMode?: boolean
-  initialProps: any
-}
+export { DarkModeContext }
