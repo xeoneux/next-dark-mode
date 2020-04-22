@@ -43,7 +43,7 @@ This prevents the common page load glitch with the local storage approach where 
 
 You can see it in this implementation by [Pantaley Stoyanov](https://pantaley.com).
 
-NOTE: This library is not compatible with [Next.js 9's Auto Partial Static Export](https://nextjs.org/blog/next-9#automatic-partial-static-export) feature as it has to read the cookie in `getInitialProps` function, which makes all pages incompatible with Automatic Partial Static Export feature.
+NOTE: This library is not compatible with [Next.js 9's Auto Partial Static Export](https://nextjs.org/blog/next-9#automatic-partial-static-export) feature as it has to read the cookies in `getInitialProps` function, which makes all pages incompatible with Automatic Partial Static Export feature.
 
 ## Requirements
 
@@ -84,10 +84,10 @@ $ npm install next-dark-mode
    export default withDarkMode(MyApp)
    ```
 
-2. You can now use the `NextDarkModeContext` [context](https://reactjs.org/docs/context.html) to get the supported values through the `useContext` hook
+2. You can now use the `DarkModeContext` [context](https://reactjs.org/docs/context.html) to get the supported values through the `useContext` hook
 
    ```js
-   import { NextDarkModeContext } from 'next-dark-mode'
+   import { DarkModeContext } from 'next-dark-mode'
    import React, { useContext } from 'react'
 
    const functionComponent = props => {
@@ -98,7 +98,7 @@ $ npm install next-dark-mode
        switchToAutoMode,
        switchToDarkMode,
        switchToLightMode,
-     } = useContext(NextDarkModeContext)
+     } = useContext(DarkModeContext)
    }
    ```
 
@@ -107,10 +107,11 @@ $ npm install next-dark-mode
 The `withDarkMode` function accepts a `config` object as its second argument. Every key is optional with default values mentioned:
 
 - `autoModeCookieName`: string - Name of the cookie used to determine whether the auto preset is enabled.
-  Defaults to `'autoMode'`
+  Defaults to `'autoMode'`.
 - `darkModeCookieName`: string - Name of the cookie used to determine whether the dark preset is enabled.
-  Defaults to `'darkMode'`
-- `defaultMode`: string - Determines the default color mode when there's no cookie set on the client. This usually happens on the first ever page load. It can either be `'dark'` or `'light'` and it defaults to `'light'`
+  Defaults to `'darkMode'`.
+- `defaultMode`: string - Determines the default color mode when there's no cookie set on the client. This usually happens on the first ever page load. It can either be `'dark'` or `'light'` and it defaults to `'light'`.
+- `provider`: boolean - By default the main App is wrapped in a `DarkModeContext.Provider` to utilize the `useContext` hook. If you want to use the library with a CSS-in-JS solution like [emotion](https://github.com/emotion-js/emotion) or [styled-components](https://github.com/styled-components/styled-components), you can disable the default provider. Defaults to `true`.
 
 ## Resources
 
