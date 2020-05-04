@@ -100,11 +100,11 @@ export default (App: NextComponentType | any, config?: Partial<Config>) => {
     return provider ? <DarkModeContext.Provider value={state}>{app}</DarkModeContext.Provider> : app
   }
 
-  DarkMode.getInitialProps = async ({ Component, ctx }: AppContext) => {
-    const initialProps = Component.getInitialProps ? await Component.getInitialProps(ctx) : {}
+  DarkMode.getInitialProps = async (appContext: AppContext) => {
+    const initialProps = App.getInitialProps ? await App.getInitialProps(appContext) : {}
 
     if (typeof window === 'undefined') {
-      const cookies = parseCookies(ctx)
+      const cookies = parseCookies(appContext.ctx)
 
       const autoModeCookie = cookies[autoModeCookieName]
       const darkModeCookie = cookies[darkModeCookieName]
@@ -115,8 +115,8 @@ export default (App: NextComponentType | any, config?: Partial<Config>) => {
       const autoModeString = autoMode ? '1' : '0'
       const darkModeString = darkMode ? '1' : '0'
 
-      if (autoModeString !== autoModeCookie) setCookie(ctx, autoModeCookieName, autoModeString, {})
-      if (darkModeString !== darkModeCookie) setCookie(ctx, darkModeCookieName, darkModeString, {})
+      if (autoModeString !== autoModeCookie) setCookie(appContext.ctx, autoModeCookieName, autoModeString, {})
+      if (darkModeString !== darkModeCookie) setCookie(appContext.ctx, darkModeCookieName, darkModeString, {})
 
       return { autoMode, darkMode, initialProps }
     }
