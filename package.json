@@ -5,14 +5,14 @@
   },
   "description": "Enable dark mode for Next.js",
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^2.28.0",
-    "@typescript-eslint/parser": "^2.28.0",
+    "@typescript-eslint/eslint-plugin": "^2.31.0",
+    "@typescript-eslint/parser": "^2.31.0",
     "eslint": "^6.8.0",
     "eslint-config-alloy": "^3.7.1",
     "eslint-plugin-react": "^7.19.0",
     "husky": "4.2.5",
     "lerna": "^3.20.2",
-    "lint-staged": "^10.1.6",
+    "lint-staged": "^10.2.2",
     "rimraf": "3.0.2",
     "typescript": "^3.8.3"
   },
@@ -34,7 +34,7 @@
     "publish:release": "lerna publish --tag-version-prefix=\"\" --force-publish=* --no-push --no-git-tag-version",
     "start": "yarn build:quick && lerna run start --parallel"
   },
-  "version": "2.2.3",
+  "version": "2.2.4",
   "workspaces": [
     "packages/*"
   ]
