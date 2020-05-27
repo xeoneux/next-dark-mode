@@ -96,6 +96,8 @@ The `withDarkMode` function accepts a `config` object as its second argument. Ev
 
 - `autoModeCookieName`: string - Name of the cookie used to determine whether the auto preset is enabled.
   Defaults to `'autoMode'`.
+- `cookieOptions`: object - Configuration [options](https://github.com/jshttp/cookie#options-1) for the cookies that gets set on the client.
+  Defaults to `{ sameSite: 'lax' }`.
 - `darkModeCookieName`: string - Name of the cookie used to determine whether the dark preset is enabled.
   Defaults to `'darkMode'`.
 - `defaultMode`: string - Determines the default color mode when there's no cookie set on the client. This usually happens on the first ever page load. It can either be `'dark'` or `'light'` and it defaults to `'light'`.

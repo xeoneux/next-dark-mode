@@ -34,7 +34,7 @@
     "publish:release": "lerna publish --tag-version-prefix=\"\" --force-publish=* --no-push --no-git-tag-version",
     "start": "yarn build:quick && lerna run start --parallel"
   },
-  "version": "2.2.4",
+  "version": "2.3.0",
   "workspaces": [
     "packages/*"
   ]

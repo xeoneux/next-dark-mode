@@ -14,7 +14,10 @@ interface AppProps {
 }
 
 export default (App: NextComponentType | any, config?: Partial<Config>) => {
-  const { autoModeCookieName, darkModeCookieName, defaultMode, provider } = { ...defaultConfig, ...config }
+  const { autoModeCookieName, cookieOptions, darkModeCookieName, defaultMode, provider } = {
+    ...defaultConfig,
+    ...config,
+  }
 
   function DarkMode({ autoMode, darkMode, initialProps, ...props }: AppProps) {
     const [state, setState] = useState({
@@ -25,9 +28,9 @@ export default (App: NextComponentType | any, config?: Partial<Config>) => {
       switchToAutoMode: () => {
         setState(state => {
           if (state.autoModeSupported) {
-            setCookie(null, autoModeCookieName, '1', { sameSite: 'lax' })
+            setCookie(null, autoModeCookieName, '1', cookieOptions)
             const darkModeActive = state.browserMode === MODE.DARK
-            setCookie(null, darkModeCookieName, darkModeActive ? '1' : '0', { sameSite: 'lax' })
+            setCookie(null, darkModeCookieName, darkModeActive ? '1' : '0', cookieOptions)
 
             return { ...state, autoModeActive: true, darkModeActive }
           }
@@ -37,13 +40,13 @@ export default (App: NextComponentType | any, config?: Partial<Config>) => {
       },
       switchToDarkMode: () => {
         setState(state => ({ ...state, autoModeActive: false, darkModeActive: true }))
-        setCookie(null, autoModeCookieName, '0', { sameSite: 'lax' })
-        setCookie(null, darkModeCookieName, '1', { sameSite: 'lax' })
+        setCookie(null, autoModeCookieName, '0', cookieOptions)
+        setCookie(null, darkModeCookieName, '1', cookieOptions)
       },
       switchToLightMode: () => {
         setState(state => ({ ...state, autoModeActive: false, darkModeActive: false }))
-        setCookie(null, autoModeCookieName, '0', { sameSite: 'lax' })
-        setCookie(null, darkModeCookieName, '0', { sameSite: 'lax' })
+        setCookie(null, autoModeCookieName, '0', cookieOptions)
+        setCookie(null, darkModeCookieName, '0', cookieOptions)
       },
     })
 
@@ -54,10 +57,10 @@ export default (App: NextComponentType | any, config?: Partial<Config>) => {
             case themes.DARK:
               setState(state => {
                 if (state.autoModeSupported) {
-                  setCookie(null, darkModeCookieName, '1', { sameSite: 'lax' })
+                  setCookie(null, darkModeCookieName, '1', cookieOptions)
                   return { ...state, browserMode: MODE.DARK, darkModeActive: true }
                 } else {
-                  if (state.autoModeActive) setCookie(null, darkModeCookieName, '1', { sameSite: 'lax' })
+                  if (state.autoModeActive) setCookie(null, darkModeCookieName, '1', cookieOptions)
                   return {
                     ...state,
                     autoModeSupported: true,
@@ -70,10 +73,10 @@ export default (App: NextComponentType | any, config?: Partial<Config>) => {
             case themes.LIGHT:
               setState(state => {
                 if (state.autoModeSupported) {
-                  setCookie(null, darkModeCookieName, '0', { sameSite: 'lax' })
+                  setCookie(null, darkModeCookieName, '0', cookieOptions)
                   return { ...state, browserMode: MODE.LIGHT, darkModeActive: false }
                 } else {
-                  if (state.autoModeActive) setCookie(null, darkModeCookieName, '0', { sameSite: 'lax' })
+                  if (state.autoModeActive) setCookie(null, darkModeCookieName, '0', cookieOptions)
                   return {
                     ...state,
                     autoModeSupported: true,
@@ -85,7 +88,7 @@ export default (App: NextComponentType | any, config?: Partial<Config>) => {
               break
             case themes.NO_PREF:
             case themes.NO_SUPP:
-              setCookie(null, autoModeCookieName, '0', { sameSite: 'lax' })
+              setCookie(null, autoModeCookieName, '0', cookieOptions)
               setState(state => ({ ...state, autoModeSupported: false }))
               break
           }
@@ -116,9 +119,9 @@ export default (App: NextComponentType | any, config?: Partial<Config>) => {
       const darkModeString = darkMode ? '1' : '0'
 
       if (autoModeString !== autoModeCookie)
-        setCookie(appContext.ctx, autoModeCookieName, autoModeString, { sameSite: 'lax' })
+        setCookie(appContext.ctx, autoModeCookieName, autoModeString, cookieOptions)
       if (darkModeString !== darkModeCookie)
-        setCookie(appContext.ctx, darkModeCookieName, darkModeString, { sameSite: 'lax' })
+        setCookie(appContext.ctx, darkModeCookieName, darkModeString, cookieOptions)
 
       return { autoMode, darkMode, initialProps }
     }
