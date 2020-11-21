@@ -3,6 +3,15 @@ body {
   padding: 0;
 }
 
+body::after {
+  content: url(../assets/auto.svg) url(../assets/dark.svg) url(../assets/light.svg);
+  height: 0;
+  overflow: hidden;
+  position: absolute;
+  width: 0;
+  z-index: -1;
+}
+
 .layout {
   align-items: center;
   color: #808080;
