@@ -1,7 +1,7 @@
 import { useDarkMode } from 'next-dark-mode'
 import React, { Fragment } from 'react'
 
-export default function () {
+export default function Home() {
   const { autoModeActive, darkModeActive, switchToAutoMode, switchToDarkMode, switchToLightMode } = useDarkMode()
 
   const findActive = (text: string): boolean => {
