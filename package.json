@@ -5,13 +5,13 @@
   },
   "dependencies": {
     "@assortment/darkmodejs": "^1.2.0",
-    "@types/react-dom": "^17.0.0",
     "nookies": "^2.5.0"
   },
   "description": "Enable dark mode for Next.js",
   "devDependencies": {
     "@types/cookie": "^0.4.0",
     "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0",
     "@typescript-eslint/eslint-plugin": "^4.8.1",
     "@typescript-eslint/parser": "^4.8.1",
     "concurrently": "^5.3.0",
@@ -51,5 +51,5 @@
   },
   "source": "src/index.tsx",
   "types": "es6/index.d.ts",
-  "version": "2.3.1"
+  "version": "2.3.2"
 }
