@@ -3278,13 +3278,12 @@ neo-async@^2.5.0, neo-async@^2.6.0, neo-async@^2.6.1, neo-async@^2.6.2:
   resolved "https://registry.yarnpkg.com/neo-async/-/neo-async-2.6.2.tgz#b4aafb93e3aeb2d8174ca53cf163ab7d7308305f"
   integrity sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==
 
-next-dark-mode@2.3.1:
-  version "2.3.1"
-  resolved "https://registry.yarnpkg.com/next-dark-mode/-/next-dark-mode-2.3.1.tgz#8a16908129fdefb00622334009bcc7b2629b67de"
-  integrity sha512-w/ZqJYHwmVGNFNSFaYOK+kIe//6D7y1GDM7J28LeAubo1OdGrtPCkq1g8DOyp7+/kGXr1Dq5iGK5p3i2Sa1nig==
+next-dark-mode@2.3.2:
+  version "2.3.2"
+  resolved "https://registry.yarnpkg.com/next-dark-mode/-/next-dark-mode-2.3.2.tgz#6cd26882877165d8d76b5893eb1f8d02204e27d1"
+  integrity sha512-fZ1JqridBJH+mR76c/fVudGQzO9mRNw0YXrN48cFpIsZDja8898SerjWTlWYVAYCyBkMQXetkjkh/cZKpDszpA==
   dependencies:
     "@assortment/darkmodejs" "^1.2.0"
-    "@types/react-dom" "^17.0.0"
     nookies "^2.5.0"
 
 next-tick@~1.0.0:

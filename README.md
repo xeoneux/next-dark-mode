@@ -27,7 +27,7 @@
 
 ### Auto mode
 
-`next-dark-mode` supports an **auto mode** which automatically switches the user's theme based on the color mode selected on their operating system.
+`next-dark-mode` optionally supports **auto mode** which automatically switches the user's theme as per the color mode selected on their operating system.
 
 [Windows](https://blogs.windows.com/windowsexperience/2016/08/08/windows-10-tip-personalize-your-pc-by-enabling-the-dark-theme) and [macOS](https://support.apple.com/en-in/HT208976) both support setting the dark or light mode based on the time of the day.
 
@@ -71,12 +71,34 @@ $ npm install next-dark-mode
    export default withDarkMode(App)
    ```
 
-2) You can now use the `useDarkMode` hook
+2. You can now use the `useDarkMode` hook
 
    ```js
    import { useDarkMode } from 'next-dark-mode'
 
    const MyComponent = props => {
+     const {
+       autoModeActive,    // boolean - whether the auto mode is active or not
+       autoModeSupported, // boolean - whether the auto mode is supported on this browser
+       darkModeActive,    // boolean - whether the dark mode is active or not
+       switchToAutoMode,  // function - toggles the auto mode on
+       switchToDarkMode,  // function - toggles the dark mode on
+       switchToLightMode, // function - toggles the light mode on
+     } = useDarkMode()
+
+    ...
+   }
+   ```
+
+### With CSS-in-JS libraries (like emotion or styled-components)
+
+1. Wrap your [\_app.js](https://nextjs.org/docs/advanced-features/custom-app) component (located in `/pages`) with the [HOC](https://reactjs.org/docs/higher-order-components.html) `withDarkMode` but do not use the inbuilt provider
+
+   ```js
+   // _app.js
+   import withDarkMode from 'next-dark-mode'
+
+   function MyApp(props) {
      const {
        autoModeActive,
        autoModeSupported,
@@ -84,10 +106,39 @@ $ npm install next-dark-mode
        switchToAutoMode,
        switchToDarkMode,
        switchToLightMode,
-     } = useDarkMode()
+     } = props.darkMode
 
-    ...
+     ...
    }
+
+   export default withDarkMode(MyApp, { provider: false })
+   ```
+
+2. You can now pass these values to the `ThemeProvider` so that you can use it in your components
+
+   ```js
+   // _app.js
+   import { ThemeProvider } from '@emotion/react' // or styled-components
+   import withDarkMode from 'next-dark-mode'
+
+   function MyApp({ Component, darkMode, pageProps }) {
+     const {
+       autoModeActive,
+       autoModeSupported,
+       darkModeActive,
+       switchToAutoMode,
+       switchToDarkMode,
+       switchToLightMode,
+     } = darkMode
+
+     return (
+       <ThemeProvider theme={{ darkMode }}>
+         <Component {...pageProps} />
+       </ThemeProvider>
+     )
+   }
+
+   export default withDarkMode(MyApp, { provider: false })
    ```
 
 ## Configuration

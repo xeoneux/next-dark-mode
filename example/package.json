@@ -1,7 +1,7 @@
 {
   "dependencies": {
     "next": "^10.0.2",
-    "next-dark-mode": "2.3.1",
+    "next-dark-mode": "2.3.2",
     "react": "^17.0.1",
     "react-dom": "^17.0.1"
   },
