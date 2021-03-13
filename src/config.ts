@@ -10,7 +10,6 @@ export interface Config {
   cookieOptions: CookieSerializeOptions
   darkModeCookieName: string
   defaultMode: MODE
-  provider: boolean
 }
 
 export const defaultConfig: Config = {
@@ -18,5 +17,4 @@ export const defaultConfig: Config = {
   cookieOptions: { sameSite: 'lax' },
   darkModeCookieName: 'darkMode',
   defaultMode: MODE.LIGHT,
-  provider: true,
 }

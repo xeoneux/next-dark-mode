@@ -92,7 +92,7 @@ $ npm install next-dark-mode
 
 ### With CSS-in-JS libraries (like emotion or styled-components)
 
-1. Wrap your [\_app.js](https://nextjs.org/docs/advanced-features/custom-app) component (located in `/pages`) with the [HOC](https://reactjs.org/docs/higher-order-components.html) `withDarkMode` but do not use the inbuilt provider
+1. Wrap your [\_app.js](https://nextjs.org/docs/advanced-features/custom-app) component (located in `/pages`) with the [HOC](https://reactjs.org/docs/higher-order-components.html) `withDarkMode`
 
    ```js
    // _app.js
@@ -111,7 +111,7 @@ $ npm install next-dark-mode
      ...
    }
 
-   export default withDarkMode(MyApp, { provider: false })
+   export default withDarkMode(MyApp)
    ```
 
 2. You can now pass these values to the `ThemeProvider` so that you can use it in your components
@@ -132,13 +132,13 @@ $ npm install next-dark-mode
      } = darkMode
 
      return (
-       <ThemeProvider theme={{ darkMode }}>
+       <ThemeProvider theme={{ darkMode: darkModeActive, ... }}>
          <Component {...pageProps} />
        </ThemeProvider>
      )
    }
 
-   export default withDarkMode(MyApp, { provider: false })
+   export default withDarkMode(MyApp)
    ```
 
 ## Configuration
@@ -152,7 +152,6 @@ The `withDarkMode` function accepts a `config` object as its second argument. Ev
 - `darkModeCookieName`: string - Name of the cookie used to determine whether the dark preset is enabled.
   Defaults to `'darkMode'`.
 - `defaultMode`: string - Determines the default color mode when there's no cookie set on the client. This usually happens on the first ever page load. It can either be `'dark'` or `'light'` and it defaults to `'light'`.
-- `provider`: boolean - By default the main App is wrapped in a `DarkModeContext.Provider` to utilize the `useDarkMode` hook. If you want to use the library with a CSS-in-JS solution like [emotion](https://github.com/emotion-js/emotion) or [styled-components](https://github.com/styled-components/styled-components), you can disable the default provider. Defaults to `true`.
 
 ## Resources
 

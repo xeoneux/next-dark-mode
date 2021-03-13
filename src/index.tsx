@@ -17,7 +17,7 @@ interface AppProps {
 }
 
 export default (App: NextComponentType | any, config?: Partial<Config>) => {
-  const { autoModeCookieName, cookieOptions, darkModeCookieName, defaultMode, provider } = {
+  const { autoModeCookieName, cookieOptions, darkModeCookieName, defaultMode } = {
     ...defaultConfig,
     ...config,
   }
@@ -103,7 +103,7 @@ export default (App: NextComponentType | any, config?: Partial<Config>) => {
 
     const app = <App darkMode={state} {...props} {...initialProps} />
 
-    return provider ? <DarkModeContext.Provider value={state}>{app}</DarkModeContext.Provider> : app
+    return <DarkModeContext.Provider value={state}>{app}</DarkModeContext.Provider>
   }
 
   DarkMode.getInitialProps = async (appContext: AppContext) => {

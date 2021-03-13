@@ -4,25 +4,25 @@
     "url": "https://github.com/xeoneux/next-dark-mode/issues"
   },
   "dependencies": {
-    "@assortment/darkmodejs": "^1.2.0",
-    "nookies": "^2.5.0"
+    "@assortment/darkmodejs": "^1.2.1",
+    "nookies": "^2.5.2"
   },
   "description": "Enable dark mode for Next.js",
   "devDependencies": {
     "@types/cookie": "^0.4.0",
-    "@types/react": "^17.0.0",
-    "@types/react-dom": "^17.0.0",
-    "@typescript-eslint/eslint-plugin": "^4.8.1",
-    "@typescript-eslint/parser": "^4.8.1",
-    "concurrently": "^5.3.0",
-    "eslint": "^7.14.0",
-    "eslint-config-alloy": "^3.8.2",
-    "eslint-plugin-react": "^7.21.5",
-    "next": "^10.0.2",
+    "@types/react": "^17.0.3",
+    "@types/react-dom": "^17.0.2",
+    "@typescript-eslint/eslint-plugin": "^4.17.0",
+    "@typescript-eslint/parser": "^4.17.0",
+    "concurrently": "^6.0.0",
+    "eslint": "^7.22.0",
+    "eslint-config-alloy": "^3.10.0",
+    "eslint-plugin-react": "^7.22.0",
+    "next": "^10.0.8",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "rimraf": "3.0.2",
-    "typescript": "^4.1.2"
+    "typescript": "^4.2.3"
   },
   "homepage": "https://github.com/xeoneux/next-dark-mode",
   "jsnext:main": "src/index.tsx",
@@ -51,5 +51,5 @@
   },
   "source": "src/index.tsx",
   "types": "es6/index.d.ts",
-  "version": "2.3.2"
+  "version": "3.0.0"
 }
