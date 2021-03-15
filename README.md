@@ -71,7 +71,7 @@ $ npm install next-dark-mode
    export default withDarkMode(App)
    ```
 
-2. You can now use the `useDarkMode` hook
+2. You can now use the `useDarkMode` hook anywhere in your app
 
    ```js
    import { useDarkMode } from 'next-dark-mode'
@@ -92,29 +92,7 @@ $ npm install next-dark-mode
 
 ### With CSS-in-JS libraries (like emotion or styled-components)
 
-1. Wrap your [\_app.js](https://nextjs.org/docs/advanced-features/custom-app) component (located in `/pages`) with the [HOC](https://reactjs.org/docs/higher-order-components.html) `withDarkMode`
-
-   ```js
-   // _app.js
-   import withDarkMode from 'next-dark-mode'
-
-   function MyApp(props) {
-     const {
-       autoModeActive,
-       autoModeSupported,
-       darkModeActive,
-       switchToAutoMode,
-       switchToDarkMode,
-       switchToLightMode,
-     } = props.darkMode
-
-     ...
-   }
-
-   export default withDarkMode(MyApp)
-   ```
-
-2. You can now pass these values to the `ThemeProvider` so that you can use it in your components
+1. Wrap your [\_app.js](https://nextjs.org/docs/advanced-features/custom-app) component (located in `/pages`) with the [HOC](https://reactjs.org/docs/higher-order-components.html) `withDarkMode` and pass the values to the `ThemeProvider` so that you can use it in your components
 
    ```js
    // _app.js
@@ -126,13 +104,10 @@ $ npm install next-dark-mode
        autoModeActive,
        autoModeSupported,
        darkModeActive,
-       switchToAutoMode,
-       switchToDarkMode,
-       switchToLightMode,
      } = darkMode
 
      return (
-       <ThemeProvider theme={{ darkMode: darkModeActive, ... }}>
+       <ThemeProvider theme={{ darkMode: darkModeActive, ...(other values) }}>
          <Component {...pageProps} />
        </ThemeProvider>
      )
@@ -140,6 +115,7 @@ $ npm install next-dark-mode
 
    export default withDarkMode(MyApp)
    ```
+
 
 ## Configuration
 
