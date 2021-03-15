@@ -100,11 +100,7 @@ $ npm install next-dark-mode
    import withDarkMode from 'next-dark-mode'
 
    function MyApp({ Component, darkMode, pageProps }) {
-     const {
-       autoModeActive,
-       autoModeSupported,
-       darkModeActive,
-     } = darkMode
+     const { autoModeActive, autoModeSupported, darkModeActive } = darkMode
 
      return (
        <ThemeProvider theme={{ darkMode: darkModeActive, ...(other values) }}>
@@ -115,7 +111,6 @@ $ npm install next-dark-mode
 
    export default withDarkMode(MyApp)
    ```
-
 
 ## Configuration
 
