@@ -1,14 +1,11 @@
 import darkmodejs from '@assortment/darkmodejs'
-import { parseCookies, setCookie } from 'nookies'
-import React, { useEffect, useState } from 'react'
-
 import type { NextComponentType } from 'next'
 import type { AppContext } from 'next/app'
-
+import { parseCookies, setCookie } from 'nookies'
+import React, { useEffect, useState } from 'react'
+import type { Config } from './config'
 import { defaultConfig, MODE } from './config'
 import { DarkModeContext, useDarkMode } from './darkModeContext'
-
-import type { Config } from './config'
 
 interface AppProps {
   autoMode?: boolean
