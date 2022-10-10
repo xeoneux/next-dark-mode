@@ -10,7 +10,6 @@ import { DarkModeContext, useDarkMode } from './darkModeContext'
 interface AppProps {
   autoMode?: boolean
   darkMode?: boolean
-  initialProps: any
 }
 
 export default (App: NextComponentType | any, config?: Partial<Config>) => {
@@ -19,7 +18,7 @@ export default (App: NextComponentType | any, config?: Partial<Config>) => {
     ...config,
   }
 
-  function DarkMode({ autoMode, darkMode, initialProps, ...props }: AppProps) {
+  function DarkMode({ autoMode, darkMode, ...props }: AppProps) {
     const [state, setState] = useState({
       autoModeActive: !!autoMode,
       autoModeSupported: false,
@@ -98,13 +97,13 @@ export default (App: NextComponentType | any, config?: Partial<Config>) => {
       return removeListeners
     }, [])
 
-    const app = <App darkMode={state} {...props} {...initialProps} />
+    const app = <App darkMode={state} {...props} />
 
     return <DarkModeContext.Provider value={state}>{app}</DarkModeContext.Provider>
   }
 
   DarkMode.getInitialProps = async (appContext: AppContext) => {
-    const initialProps = App.getInitialProps ? await App.getInitialProps(appContext) : {}
+    const appProps = App.getInitialProps ? await App.getInitialProps(appContext) : {}
 
     if (typeof window === 'undefined') {
       const cookies = parseCookies(appContext.ctx)
@@ -123,10 +122,10 @@ export default (App: NextComponentType | any, config?: Partial<Config>) => {
       if (darkModeString !== darkModeCookie)
         setCookie(appContext.ctx, darkModeCookieName, darkModeString, cookieOptions)
 
-      return { autoMode, darkMode, initialProps }
+      return { autoMode, darkMode, ...appProps }
     }
 
-    return { initialProps }
+    return { ...appProps }
   }
 
   DarkMode.displayName = `withDarkMode(${App.displayName || App.name || 'App'})`
