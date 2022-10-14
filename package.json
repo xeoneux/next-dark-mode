@@ -17,7 +17,7 @@
     "concurrently": "^7.4.0",
     "eslint": "^8.25.0",
     "eslint-config-alloy": "^4.7.0",
-    "eslint-plugin-react": "^7.31.9",
+    "eslint-plugin-react": "^7.31.10",
     "next": "^12.3.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -51,5 +51,5 @@
   },
   "source": "src/index.tsx",
   "types": "es6/index.d.ts",
-  "version": "4.0.0-beta.0"
+  "version": "4.0.0-beta.1"
 }

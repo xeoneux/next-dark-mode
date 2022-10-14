@@ -1,6 +1,7 @@
 import darkmodejs from '@assortment/darkmodejs'
 import type { NextComponentType } from 'next'
 import type { AppContext } from 'next/app'
+import NextApp from 'next/app'
 import { parseCookies, setCookie } from 'nookies'
 import React, { useEffect, useState } from 'react'
 import type { Config } from './config'
@@ -103,7 +104,9 @@ export default (App: NextComponentType | any, config?: Partial<Config>) => {
   }
 
   DarkMode.getInitialProps = async (appContext: AppContext) => {
-    const appProps = App.getInitialProps ? await App.getInitialProps(appContext) : {}
+    const appProps = App.getInitialProps
+      ? await App.getInitialProps(appContext)
+      : await NextApp.getInitialProps(appContext)
 
     if (typeof window === 'undefined') {
       const cookies = parseCookies(appContext.ctx)
